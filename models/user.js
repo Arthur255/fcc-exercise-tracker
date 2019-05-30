@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
-const Exercise = require("./exercise");
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    minlength: 3,
-    maxlength: 50,
+    minlength: [1, "username too short"],
+    maxlength: [50, "username too long"],
     require: true,
     unique: true
   },

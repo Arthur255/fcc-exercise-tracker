@@ -10,7 +10,7 @@ router.get("/", async (req, res, next) => {
     users = users.map(({ username, id }) => ({ username, _id: id }));
     res.status(200).send(users);
   } catch (err) {
-    return next(err);
+    next(err);
   }
 });
 
@@ -22,9 +22,7 @@ router.post("/", async (req, res, next) => {
   });
 
   const error = user.validateSync();
-  if (error) {
-    return next(error);
-  }
+  if (error) return next(error);
 
   try {
     await user.save();

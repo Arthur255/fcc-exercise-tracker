@@ -4,7 +4,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-const newUser = require("./routes/newUser");
+const users = require("./routes/users");
+const exercises = require("./routes/exercises");
+const logs = require("./routes/logs");
 
 mongoose.connect(
   "mongodb://admin:password1@ds261716.mlab.com:61716/fcc-exercisetracker",
@@ -23,7 +25,10 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.use("/api/exercise/new-user", newUser);
+app.use("/api/exercise/new-user", users);
+app.use("/api/exercise/users", users);
+app.use("/api/exercise/add", exercises);
+app.use("/api/exercise/log", logs);
 
 // Not found middleware
 app.use((req, res, next) => {
@@ -33,8 +38,6 @@ app.use((req, res, next) => {
 // Error Handling middleware
 app.use((err, req, res, next) => {
   let errCode, errMessage;
-
-  console.log(err);
 
   if (err.errors) {
     // mongoose validation error

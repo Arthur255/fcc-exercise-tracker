@@ -2,20 +2,18 @@ const { User, Exercise } = require("../models/index");
 const express = require("express");
 const router = express.Router();
 
-// create new exercice
+// create new exercise
 router.post("/", async (req, res, next) => {
   const { userId, description, duration, date } = req.body;
   const exercise = new Exercise({
     id: userId,
     description,
     duration,
-    date: date ? new Date(date) : Date.now()
+    date: date ? new Date(date) : new Date(Date.now())
   });
 
-  error = exercise.validateSync();
-  if (error) {
-    return next(error);
-  }
+  const error = exercise.validateSync();
+  if (error) return next(error);
 
   try {
     const user = await User.findOneAndUpdate(
@@ -33,7 +31,7 @@ router.post("/", async (req, res, next) => {
       date: exercise.date.toDateString()
     });
   } catch (err) {
-    return next(err);
+    next(err);
   }
 });
 
