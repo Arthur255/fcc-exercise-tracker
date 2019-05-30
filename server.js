@@ -8,12 +8,9 @@ const users = require("./routes/users");
 const exercises = require("./routes/exercises");
 const logs = require("./routes/logs");
 
-mongoose.connect(
-  "mongodb://admin:password1@ds261716.mlab.com:61716/fcc-exercisetracker",
-  {
-    useNewUrlParser: true
-  }
-);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true
+});
 
 app.use(cors());
 
