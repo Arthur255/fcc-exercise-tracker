@@ -8,7 +8,7 @@ const users = require("./routes/users");
 const exercises = require("./routes/exercises");
 const logs = require("./routes/logs");
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI | require("config.json").MONGO_URI, {
   useNewUrlParser: true
 });
 
